@@ -1,0 +1,99 @@
+using System;
+
+public interface ILamp
+{
+    string Type { get; set; }
+    string Manufacturer { get; set; }
+    int PowerInLumens { get; set; }
+    string LightType { get; set; }
+    int NumberOfElements { get; set; }
+
+    void PrintDetails();
+    void ChangePower(int newPower);
+}
+
+public interface ICamera
+{
+    string Type { get; set; }
+    string Manufacturer { get; set; }
+    int LightSensitivity { get; set; }
+
+    void PrintDetails();
+    void ChangeSensitivity(int newSensitivity);
+}
+
+public class PhotoStudio : ILamp, ICamera
+{
+    // Properties for ILamp
+    public string Type { get; set; }
+    public string Manufacturer { get; set; }
+    public int PowerInLumens { get; set; }
+    public string LightType { get; set; }
+    public int NumberOfElements { get; set; }
+
+    // Properties for ICamera
+    public int LightSensitivity { get; set; }
+
+    // ILamp methods
+    public void PrintDetails()
+    {
+        Console.WriteLine($"Lamp Details:");
+        Console.WriteLine($"Type: {Type}");
+        Console.WriteLine($"Manufacturer: {Manufacturer}");
+        Console.WriteLine($"Power in Lumens: {PowerInLumens}");
+        Console.WriteLine($"Light Type: {LightType}");
+        Console.WriteLine($"Number of Elements: {NumberOfElements}");
+    }
+
+    public void ChangePower(int newPower)
+    {
+        PowerInLumens = newPower;
+        Console.WriteLine($"Changed power to {newPower} lumens.");
+    }
+
+    // ICamera methods
+    public void ChangeSensitivity(int newSensitivity)
+    {
+        LightSensitivity = newSensitivity;
+        Console.WriteLine($"Changed light sensitivity to {newSensitivity}.");
+    }
+}
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        // Створення двох екземплярів класу PhotoStudio
+        PhotoStudio studio1 = new PhotoStudio()
+        {
+            Type = "Studio Lamp",
+            Manufacturer = "ABC Lighting",
+            PowerInLumens = 5000,
+            LightType = "LED",
+            NumberOfElements = 4
+        };
+
+        PhotoStudio studio2 = new PhotoStudio()
+        {
+            Type = "Camera",
+            Manufacturer = "XYZ Cameras",
+            LightSensitivity = 200
+        };
+
+        Console.WriteLine("PhotoStudio 1:");
+        studio1.PrintDetails();
+        Console.WriteLine();
+
+        Console.WriteLine("PhotoStudio 2:");
+        studio2.PrintDetails();
+        Console.WriteLine();
+
+        studio2.ChangeSensitivity(300);
+        Console.WriteLine();
+
+        Console.WriteLine("Updated PhotoStudio 2:");
+        studio2.PrintDetails();
+
+        Console.ReadLine();
+    }
+}
